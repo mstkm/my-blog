@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class DashboardPostController extends Controller
 {
@@ -13,7 +16,6 @@ class DashboardPostController extends Controller
     public function index()
     {
         return view('dashboard.posts.index', [
-          'title' => 'My Posts',
           'posts' => Post::where('user_id', auth()->user()->id)->get()
         ]);
     }
@@ -23,7 +25,9 @@ class DashboardPostController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.posts.create', [
+          'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -31,7 +35,19 @@ class DashboardPostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedDataPost = $request->validate([
+          'title' => 'required|max:255',
+          'slug' => 'required|unique:posts',
+          'category_id' => 'required',
+          'body' => 'required',
+        ]);
+
+        $validatedDataPost['user_id'] = auth()->user()->id;
+        $validatedDataPost['excerpt'] = Str::limit(strip_tags($request->body), 200);
+
+        Post::create($validatedDataPost);
+
+        return redirect('/dashboard/posts')->with('success', 'New post has been created!');
     }
 
     /**
@@ -40,7 +56,6 @@ class DashboardPostController extends Controller
     public function show(Post $post)
     {
         return view('dashboard.posts.show', [
-          'title' => 'My Posts',
           'post' => $post
         ]);
     }
@@ -67,5 +82,10 @@ class DashboardPostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function checkSlug(Request $request) {
+      $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
+      return response()->json(['slug' => $slug]);
     }
 }

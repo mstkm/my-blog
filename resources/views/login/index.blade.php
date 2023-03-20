@@ -23,7 +23,7 @@
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="name@example.com" value="{{ old('email') }}" autofocus>
             <label for="email">Email address</label>
             @error('email')
-              <div class="invalid-tooltip end-0">
+              <div class="invalid-feedback ">
                 {{ $message }}
               </div>
             @enderror
@@ -32,7 +32,7 @@
             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password">
             <label for="password">Password</label>
             @error('password')
-              <div class="invalid-tooltip end-0">
+              <div class="invalid-feedback ">
                 {{ $message }}
               </div>
             @enderror
