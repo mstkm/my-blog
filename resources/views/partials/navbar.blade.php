@@ -19,11 +19,32 @@
           <a class="nav-link {{ $title === 'Categories' ? 'active' : '' }}" href="/categories">Categories</a>
         </li>
       </ul>
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="/login" class="btn btn-outline-light"><i class="bi bi-box-arrow-in-right"></i> Login</a>
-        </li>
-      </ul>
+      @guest
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="/login" class="btn btn-outline-light"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+          </li>
+        </ul>
+      @endguest
+      @auth
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Welcome, {{ auth()->user()->name }}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-layout-text-sidebar-reverse"></i> My Dashboard</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <form action="/logout" method="post">
+                  @csrf
+                  <button type="submit" class="dropdown-item" href="#"><i class="bi bi-box-arrow-right"></i> Logout</button>
+                </form>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      @endauth
     </div>
   </div>
 </nav>
