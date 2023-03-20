@@ -2,7 +2,7 @@
 
 @section('container')
   <div class="mt-3 mb-5">
-    <h1>{{ $post->title }}</h1>
+    <h1 class="mb-3">{{ $post->title }}</h1>
 
     <a href="/dashboard/posts" class="btn btn-sm btn-success"><span data-feather="arrow-left" class="align-text-bottom"></span> Back to all my posts</a>
     <a href="" class="btn btn-sm btn-warning"><span data-feather="edit" class="align-text-bottom"></span> Edit</a>
