@@ -5,7 +5,7 @@
     <h1 class="h2">Create New Post</h1>
   </div>
 
-  <form action="/dashboard/posts" method="post" class="mb-5">
+  <form action="/dashboard/posts" method="post" class="mb-5" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
@@ -39,6 +39,15 @@
       </select>
       @error('category_id')
         <p class="text-danger"><small>The category field is required.</small></p>
+      @enderror
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Image</label>
+      <input name="image" class="form-control @error('image') is-invalid @enderror" type="file" id="image" accept="image/png, image/jpeg">
+      @error('image')
+        <div class="invalid-feedback ">
+          {{ $message }}
+        </div>
       @enderror
     </div>
     <div class="mb-3">
