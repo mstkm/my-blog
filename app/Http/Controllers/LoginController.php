@@ -37,4 +37,8 @@ class LoginController extends Controller
 
         return redirect('/');
     }
+
+    public function logoutNotFound() {
+        return view('/notFound');
+    }
 }
