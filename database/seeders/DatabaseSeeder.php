@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         User::create([
+          'isAdmin' => true,
           'name' => 'Mugi Mustakim',
           'username' => 'mugimustakim',
           'email' => 'mugi@gmail.com',
@@ -48,7 +49,7 @@ class DatabaseSeeder extends Seeder
           'slug' => 'computer-science'
         ]);
 
-        Post::factory(35)->create();
+        Post::factory(25)->create();
 
         // Post::create([
         //   'category_id' => 1,
